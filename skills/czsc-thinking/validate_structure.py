@@ -33,17 +33,14 @@ def validate_structure():
     else:
         print("✓ SKILL.md 存在")
         
-        # 检查文件行数
+        # 读取文件一次，同时获取行数和内容
         with open(skill_md, 'r', encoding='utf-8') as f:
-            lines = len(f.readlines())
+            content = f.read()
+            lines = content.count('\n') + 1
         print(f"  行数: {lines}")
         
         if lines > 200:
             warnings.append(f"SKILL.md 文件行数({lines})偏多，建议控制在150行以内")
-        
-        # 检查是否包含必要的引用
-        with open(skill_md, 'r', encoding='utf-8') as f:
-            content = f.read()
             
         if "references/chan-theory-core.md" not in content:
             errors.append("SKILL.md 中缺少对 references/chan-theory-core.md 的引用")
