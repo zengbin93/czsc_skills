@@ -14,9 +14,7 @@
 
 import argparse
 import pandas as pd
-from czsc import CZSC
-from czsc.objects import RawBar
-from czsc.signals import get_default_signals
+from czsc import CZSC, RawBar, Freq
 from datetime import datetime
 
 
@@ -52,7 +50,7 @@ def convert_to_raw_bars(df, symbol):
     raw_bars = []
     for _, row in df.iterrows():
         # 处理日期格式
-        trade_date = str(row['trade_date'])
+        trade_date = str(int(float(row['trade_date']))) if '.' in str(row['trade_date']) else str(row['trade_date'])
         if len(trade_date) == 8:  # YYYYMMDD 格式
             dt = pd.to_datetime(trade_date, format='%Y%m%d')
         else:
@@ -60,14 +58,15 @@ def convert_to_raw_bars(df, symbol):
         
         bar = RawBar(
             symbol=symbol,
-            id=len(raw_bars),
             dt=dt,
+            freq=Freq.D,
             open=float(row['open']),
             close=float(row['close']),
             high=float(row['high']),
             low=float(row['low']),
             vol=float(row.get('vol', 0)),
-            amount=float(row.get('amount', 0))
+            amount=float(row.get('amount', 0)),
+            id=len(raw_bars)
         )
         raw_bars.append(bar)
     
@@ -234,7 +233,7 @@ def main():
     
     # 创建 CZSC 对象
     print(f"\n正在创建 CZSC 对象（周期：{args.freq}）...")
-    czsc_obj = CZSC(raw_bars, freq=args.freq)
+    czsc_obj = CZSC(raw_bars)
     
     # 分析买卖点
     analyze_buy_sell_points(czsc_obj)
