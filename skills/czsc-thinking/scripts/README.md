@@ -184,11 +184,33 @@ python signal_analysis.py \
     --symbol 000001.SZ
 ```
 
+### 使用示例工作流脚本
+
+我们还提供了一个自动化的工作流脚本 `example_workflow.py`，可以一次性执行上述所有步骤：
+
+```bash
+# 分析平安银行最近180天的数据
+python example_workflow.py \
+    --token YOUR_TUSHARE_TOKEN \
+    --ts_code 000001.SZ \
+    --days 180
+```
+
+这个脚本会自动：
+1. 获取指定股票最近 N 天的数据
+2. 分析缠论结构
+3. 分析买卖点信号
+4. 保存数据文件供后续分析
+
 ## 环境要求
 
 ### 安装依赖
 
 ```bash
+# 使用 requirements.txt 安装
+pip install -r requirements.txt
+
+# 或者手动安装
 pip install czsc tushare pandas
 ```
 
