@@ -18,10 +18,17 @@ Skills 是包含指令、脚本和资源的文件夹，Claude 可以动态加载
 
 本仓库提供以下缠论相关技能：
 
-1. **fractal-detector** - 分型识别技能：识别K线图中的顶分型和底分型
-2. **bi-analyzer** - 笔分析技能：识别和分析缠论中的笔结构
-3. **signal-generator** - 信号生成技能：基于缠论生成交易信号
-4. **czsc-thinking** - 缠论思维技能：教导如何以缠论原文的方式分析交易机会和市场
+1. **czsc-thinking** - 缠论思维技能：教导如何以缠论原文的方式分析交易机会和市场，包含完整的缠论分析脚本工具
+
+### czsc-thinking 脚本工具
+
+czsc-thinking 技能包含三个实用的 Python 脚本，演示了完整的缠论分析流程：
+
+1. **fetch_market_data.py** - 通过 Tushare 获取行情数据
+2. **analyze_czsc_structure.py** - 调用 CZSC 对象分析缠论结构（分型、笔、线段等）
+3. **signal_analysis.py** - 调用信号函数辅助分析买卖点、背驰和趋势
+
+详细使用说明请参考：[scripts/README.md](skills/czsc-thinking/scripts/README.md)
 
 ## 使用方法
 

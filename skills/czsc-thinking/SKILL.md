@@ -381,3 +381,59 @@ description: 教导 AI 代理如何以缠论原文的思维方式分析交易机
 ## 参考资源
 
 本技能基于缠中说禅2006-2008年间的原文思想整理，核心思想来源于《教你炒股票》系列108课以及相关博客文章。主要参考了 waditu/czsc 库中的 aphorism.py 文件内容。
+
+## 实用脚本工具
+
+本技能提供了三个实用的 Python 脚本，帮助你快速上手使用 waditu/czsc 库进行缠论分析：
+
+### 1. fetch_market_data.py - 获取行情数据
+
+通过 Tushare API 获取股票行情数据，支持：
+- 获取指定股票的日线数据
+- 获取所有股票的基本信息
+- 数据缓存和导出为 CSV
+
+**使用示例：**
+```bash
+python scripts/fetch_market_data.py \
+    --token YOUR_TUSHARE_TOKEN \
+    --ts_code 000001.SZ \
+    --start_date 20240101 \
+    --end_date 20240614 \
+    --output data.csv
+```
+
+### 2. analyze_czsc_structure.py - 分析缠论结构
+
+使用 CZSC 对象分析K线数据，识别缠论结构：
+- 识别顶分型和底分型
+- 识别笔的起点、终点、方向和幅度
+- 分析线段结构
+- 显示当前市场状态
+
+**使用示例：**
+```bash
+python scripts/analyze_czsc_structure.py \
+    --input data.csv \
+    --symbol 000001.SZ \
+    --freq 日线
+```
+
+### 3. signal_analysis.py - 买卖点信号分析
+
+基于缠论结构生成买卖点信号：
+- 识别潜在买卖点（一买、二买、三买等）
+- 分析背驰情况
+- 判断趋势方向和强度
+- 给出操作建议
+
+**使用示例：**
+```bash
+python scripts/signal_analysis.py \
+    --input data.csv \
+    --symbol 000001.SZ
+```
+
+详细使用说明请参考：[scripts/README.md](scripts/README.md)
+
+这些脚本提供了完整的缠论分析工作流程，从数据获取、结构分析到信号生成，帮助你更好地理解和应用缠论思想。
