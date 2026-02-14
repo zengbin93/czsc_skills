@@ -99,7 +99,7 @@ def analyze_buy_sell_points(czsc_obj):
             # 判断是否为潜在买点（向上笔的起点）
             if bi.direction == "up":
                 print(f"\n潜在买点 {i+1}:")
-                print(f"  时间：{bi.fx_a.dt.strftime('%Y-%m-%d %H:%M')}")
+                print(f"  时间：{bi.fx_a.dt.strftime('%Y-%m-%d')}")
                 print(f"  价格：{bi.fx_a.fx:.2f}")
                 print(f"  类型：{bi.fx_a.mark}分型")
                 
@@ -114,7 +114,7 @@ def analyze_buy_sell_points(czsc_obj):
             # 判断是否为潜在卖点（向下笔的起点）
             elif bi.direction == "down":
                 print(f"\n潜在卖点 {i+1}:")
-                print(f"  时间：{bi.fx_a.dt.strftime('%Y-%m-%d %H:%M')}")
+                print(f"  时间：{bi.fx_a.dt.strftime('%Y-%m-%d')}")
                 print(f"  价格：{bi.fx_a.fx:.2f}")
                 print(f"  类型：{bi.fx_a.mark}分型")
                 

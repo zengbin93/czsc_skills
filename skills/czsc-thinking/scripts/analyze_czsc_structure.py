@@ -95,7 +95,7 @@ def analyze_structure(czsc_obj):
     if czsc_obj.fx_list:
         print("\n最近 5 个分型：")
         for fx in czsc_obj.fx_list[-5:]:
-            print(f"  {fx.dt.strftime('%Y-%m-%d %H:%M')} - {fx.mark} - 价格: {fx.fx}")
+            print(f"  {fx.dt.strftime('%Y-%m-%d')} - {fx.mark} - 价格: {fx.fx}")
     
     # 笔分析
     print(f"\n笔数量：{len(czsc_obj.bi_list)}")
