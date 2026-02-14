@@ -18,12 +18,20 @@ Skills 是包含指令、脚本和资源的文件夹，Claude 可以动态加载
 
 本仓库提供以下缠论相关技能：
 
-1. **czsc-thinking** - 缠论思维技能：教导如何以缠论原文的方式分析交易机会和市场，包含完整的缠论分析脚本工具
+### 1. czsc-thinking - 缠论思维技能
 
-### czsc-thinking 脚本工具
+教导 AI 代理如何以缠论原文的方式分析交易机会和市场。该技能采用模块化结构：
 
-czsc-thinking 技能包含三个实用的 Python 脚本，演示了完整的缠论分析流程：
+**核心文件：**
+- `SKILL.md` - 简洁的技能指令文件（141行），包含核心思维框架和分析流程
 
+**参考资料：**
+- `references/chan-theory-core.md` - 完整的缠论核心理论，包括哲学、方法论和金句精选
+
+**使用示例：**
+- `examples/usage-scenarios.md` - 实战场景示例，包括股票分析、大盘研判、策略制定等
+
+**实用脚本：**
 1. **fetch_market_data.py** - 通过 Tushare 获取行情数据
 2. **analyze_czsc_structure.py** - 调用 CZSC 对象分析缠论结构（分型、笔、线段等）
 3. **signal_analysis.py** - 调用信号函数辅助分析买卖点、背驰和趋势
@@ -58,11 +66,18 @@ git clone https://github.com/zengbin93/czsc_skills.git
 
 ```
 skill-name/
-├── SKILL.md              # 必需：包含 YAML frontmatter 和 Markdown 指令
+├── SKILL.md              # 必需：包含 YAML frontmatter 和 Markdown 指令（建议<150行）
 ├── scripts/              # 可选：可执行脚本
-├── references/           # 可选：参考文档
+├── references/           # 可选：参考文档和深度理论内容
+├── examples/             # 可选：使用场景示例
 └── assets/              # 可选：模板和资源文件
 ```
+
+**最佳实践：**
+- SKILL.md 应保持简洁，聚焦于核心指令和思维框架
+- 将详细的理论内容移至 `references/` 目录
+- 将使用场景和案例移至 `examples/` 目录
+- 将可执行工具移至 `scripts/` 目录
 
 ## 创建自定义技能
 
