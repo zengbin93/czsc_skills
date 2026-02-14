@@ -171,7 +171,8 @@ result = skill.execute(data)
 
 查看 `examples/` 目录获取更多使用示例：
 
-- `basic_usage.py`: 基础使用示例
+- `basic_usage.py`: 基础使用示例，演示所有内置技能
+- `custom_skill.py`: 自定义技能示例，展示如何创建扩展技能
 
 ## 项目结构
 
