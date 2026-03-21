@@ -112,7 +112,7 @@ def analyze_structure(czsc_obj):
         print(f"\n线段数量：{len(czsc_obj.xd_list)}")
         print("\n最近 3 个线段：")
         for xd in czsc_obj.xd_list[-3:]:
-            direction = str(bi.direction)
+            direction = str(xd.direction)
             print(f"  {xd.start.dt.strftime('%Y-%m-%d')} -> {xd.end.dt.strftime('%Y-%m-%d')}: "
                   f"{direction}")
     
