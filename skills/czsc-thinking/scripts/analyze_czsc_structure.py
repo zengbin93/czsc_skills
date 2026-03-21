@@ -102,7 +102,7 @@ def analyze_structure(czsc_obj):
     if czsc_obj.bi_list:
         print("\n最近 5 笔：")
         for bi in czsc_obj.bi_list[-5:]:
-            direction = "向上" if bi.direction == "up" else "向下"
+            direction = str(bi.direction)
             print(f"  {bi.fx_a.dt.strftime('%Y-%m-%d')} -> {bi.fx_b.dt.strftime('%Y-%m-%d')}: "
                   f"{direction} - {bi.fx_a.fx:.2f} -> {bi.fx_b.fx:.2f} "
                   f"(幅度: {abs(bi.fx_b.fx - bi.fx_a.fx):.2f})")
@@ -112,7 +112,7 @@ def analyze_structure(czsc_obj):
         print(f"\n线段数量：{len(czsc_obj.xd_list)}")
         print("\n最近 3 个线段：")
         for xd in czsc_obj.xd_list[-3:]:
-            direction = "向上" if xd.direction == "up" else "向下"
+            direction = str(bi.direction)
             print(f"  {xd.start.dt.strftime('%Y-%m-%d')} -> {xd.end.dt.strftime('%Y-%m-%d')}: "
                   f"{direction}")
     
@@ -120,7 +120,7 @@ def analyze_structure(czsc_obj):
     print("\n当前状态：")
     if czsc_obj.bi_list:
         last_bi = czsc_obj.bi_list[-1]
-        print(f"  最后一笔方向：{'向上' if last_bi.direction == 'up' else '向下'}")
+        print(f"  最后一笔方向：{str(last_bi.direction)}")
         print(f"  最后一笔价格：{last_bi.fx_a.fx:.2f} -> {last_bi.fx_b.fx:.2f}")
     
     # 获取信号（如果有）
