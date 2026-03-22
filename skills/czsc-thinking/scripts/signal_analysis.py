@@ -14,7 +14,7 @@
 
 import argparse
 import pandas as pd
-from czsc import CZSC, RawBar, Freq
+from czsc import CZSC, RawBar, Freq, Direction
 from datetime import datetime
 
 
@@ -93,10 +93,10 @@ def analyze_buy_sell_points(czsc_obj):
         recent_bis = czsc_obj.bi_list[-5:]
         
         for i, bi in enumerate(recent_bis):
-            direction = "向上" if bi.direction == "up" else "向下"
+            direction = str(bi.direction)
             
             # 判断是否为潜在买点（向上笔的起点）
-            if bi.direction == "up":
+            if bi.direction == Direction.Up:
                 print(f"\n潜在买点 {i+1}:")
                 print(f"  时间：{bi.fx_a.dt.strftime('%Y-%m-%d')}")
                 print(f"  价格：{bi.fx_a.fx:.2f}")
@@ -105,13 +105,13 @@ def analyze_buy_sell_points(czsc_obj):
                 # 判断买点类型
                 if i >= 2:
                     prev_bi = recent_bis[i-2]
-                    if prev_bi.direction == "up" and bi.fx_a.fx > prev_bi.fx_a.fx:
+                    if prev_bi.direction == Direction.Up and bi.fx_a.fx > prev_bi.fx_a.fx:
                         print(f"  特征：回调不破前低（可能是二买）")
                     elif bi.fx_a.fx < prev_bi.fx_a.fx:
                         print(f"  特征：创新低后反弹（可能是一买）")
             
             # 判断是否为潜在卖点（向下笔的起点）
-            elif bi.direction == "down":
+            elif bi.direction == Direction.Down:
                 print(f"\n潜在卖点 {i+1}:")
                 print(f"  时间：{bi.fx_a.dt.strftime('%Y-%m-%d')}")
                 print(f"  价格：{bi.fx_a.fx:.2f}")
@@ -120,7 +120,7 @@ def analyze_buy_sell_points(czsc_obj):
                 # 判断卖点类型
                 if i >= 2:
                     prev_bi = recent_bis[i-2]
-                    if prev_bi.direction == "down" and bi.fx_a.fx < prev_bi.fx_a.fx:
+                    if prev_bi.direction == Direction.Down and bi.fx_a.fx < prev_bi.fx_a.fx:
                         print(f"  特征：反弹不过前高（可能是二卖）")
                     elif bi.fx_a.fx > prev_bi.fx_a.fx:
                         print(f"  特征：创新高后回落（可能是一卖）")
@@ -151,20 +151,20 @@ def analyze_divergence(czsc_obj):
             
             print(f"\n最近两笔比较：")
             print(f"  前一笔（{bi1.fx_a.dt.strftime('%Y-%m-%d')} -> {bi1.fx_b.dt.strftime('%Y-%m-%d')}）：")
-            print(f"    方向：{'向上' if bi1.direction == 'up' else '向下'}")
+            print(f"    方向：{str(bi1.direction)}")
             print(f"    幅度：{amp1:.2f}")
             
             print(f"  最后一笔（{bi2.fx_a.dt.strftime('%Y-%m-%d')} -> {bi2.fx_b.dt.strftime('%Y-%m-%d')}）：")
-            print(f"    方向：{'向上' if bi2.direction == 'up' else '向下'}")
+            print(f"    方向：{str(bi2.direction)}")
             print(f"    幅度：{amp2:.2f}")
             
             # 判断背驰
             if bi1.direction == bi2.direction:
-                if bi1.direction == "up":
+                if bi1.direction == Direction.Up:
                     if bi2.fx_b.fx > bi1.fx_b.fx and amp2 < amp1:
                         print(f"\n  ⚠️ 可能存在上涨背驰：价格创新高但幅度减小")
                         print(f"  建议：关注卖点")
-                elif bi1.direction == "down":
+                elif bi1.direction == Direction.Down:
                     if bi2.fx_b.fx < bi1.fx_b.fx and amp2 < amp1:
                         print(f"\n  ⚠️ 可能存在下跌背驰：价格创新低但幅度减小")
                         print(f"  建议：关注买点")
@@ -186,8 +186,8 @@ def analyze_trend(czsc_obj):
         recent_bis = czsc_obj.bi_list[-5:]
         
         # 提取高点和低点
-        highs = [bi.fx_b.fx for bi in recent_bis if bi.direction == "up"]
-        lows = [bi.fx_b.fx for bi in recent_bis if bi.direction == "down"]
+        highs = [bi.fx_b.fx for bi in recent_bis if bi.direction == Direction.Up]
+        lows = [bi.fx_b.fx for bi in recent_bis if bi.direction == Direction.Down]
         
         print(f"\n最近笔的高低点分析：")
         
